@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ContactUsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,13 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // echo "Selamat Datang";
-
-        //Praktikum 3
-        // return redirect('https://www.educastudio.com/');
-
-            return "Halaman dari Awal Website";
-        
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -29,7 +24,8 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -40,7 +36,8 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -51,7 +48,8 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -62,7 +60,8 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -74,7 +73,8 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 
     /**
@@ -85,6 +85,7 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return '<a href="https://www.educastudio.com/contact-us">
+        https://www.educastudio.com/contact-us</a>';
     }
 }
