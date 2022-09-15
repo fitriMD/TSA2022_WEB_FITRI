@@ -16,10 +16,9 @@ class HomeController extends Controller
         // echo "Selamat Datang";
 
         //Praktikum 3
-        // return redirect('https://www.educastudio.com/');
+        return redirect('https://www.educastudio.com/');
 
-            return "Halaman dari Awal Website";
-        
+        // return "Halaman dari Awal Website";
     }
 
     /**

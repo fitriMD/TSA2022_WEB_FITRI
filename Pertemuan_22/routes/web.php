@@ -48,6 +48,14 @@ use App\Http\Controllers\PostController;
 
 //Praktikum 2
 
+// Route::get('/', [PageController::class, 'index']);
+
+// Route::get('/about', [PageController::class, 'about']);
+
+// Route::get('/article/{id}', [PageController::class, 'article']);
+
+// modifikasi prak 2
+
 // Route::get('/', [HomeController::class, 'index']);
 
 // Route::get('/about', [AboutController::class, 'about']);
@@ -55,7 +63,7 @@ use App\Http\Controllers\PostController;
 // Route::get('/article/{id}', [ArticleController::class, 'article']);
 
 //Praktikum 3
-//1. Menampilkan Halaman Awal Website
+// 1. Menampilkan Halaman Awal Website
 Route::get('/', [HomeController::class, 'index']);
 
 // 2. Menampilkan Daftar Produk (Route Prefix)
