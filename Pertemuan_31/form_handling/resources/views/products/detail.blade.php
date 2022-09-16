@@ -21,7 +21,7 @@
                 Detail Produk
             </div>
 
-            <div class="card-body">
+            <div class="card-body" >
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" align="middle">
                     <img width="100px" height="100px" src="{{asset('storage/'.$products->gambar)}}" align="middle"></li>

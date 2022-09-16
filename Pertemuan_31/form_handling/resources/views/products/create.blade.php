@@ -15,7 +15,7 @@
     </script>
 
     <div class="container">
-        <h2>Tambahkan Produk</h2>
+        <h2>Tambah Produk</h2>
         <form method="POST" action="/products" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-floating mb-3">
@@ -32,6 +32,7 @@
             </div>
             <div class="col-auto">
                 <button type="submit" name="submit" class="btn btn-primary mb-3">Submit</button>
+                <a class="btn btn-success mb-3" href="{{ route('products.index') }}">Kembali</a>
             </div>
         </form>
     </div>

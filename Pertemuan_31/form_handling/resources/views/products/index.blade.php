@@ -17,11 +17,13 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left mt-2">
-                    <h2>DAFTAR PRODUK</h2>
+                    <center>
+                        <h2>DAFTAR PRODUK</h2>
+                    </center>
                 </div>
 
                 <div class="float-right my-2">
-                    <a class="btn btn-success" href="{{ ('products.create') }}"> Tambah Produk</a>
+                    <a class="btn btn-success" href="{{'products/create'}}"> Tambah Produk</a>
                 </div>
             </div>
         </div>
@@ -39,23 +41,20 @@
             </tr>
             @foreach ($products as $produk)
             <tr>
-
                 <td>{{ $produk->nama }}</td>
                 <td>{{ $produk->deskripsi }}</td>
                 <td>
                     <img width="100px" height="100px" src="{{asset('storage/'.$produk->gambar)}}">
                 </td>
-                {{-- <td>
-                    <form action="{{ route('products.destroy',$products->id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('products.show', $products->id) }}">Show</a>
-                        <br><br>
-                        <a class="btn btn-primary" href="{{ route('products.edit',$products->id) }}">Edit</a>
-                        <br><br>
+                <td>
+                    <form action="{{ route('products.destroy',$produk->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('products.show', $produk->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('products.edit',$produk->id) }}">Edit</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </td> --}}
+                </td>
             </tr>
             @endforeach
         </table>

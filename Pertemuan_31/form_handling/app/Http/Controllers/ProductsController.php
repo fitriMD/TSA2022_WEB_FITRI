@@ -54,7 +54,8 @@ class ProductsController extends Controller
 
         // ]);
 
-        return 'Produk berhasil ditambahkan';
+        return redirect()->route('products.index')
+            ->with('success', 'Produk Berhasil Ditambahkan');
         // var_dump(Request('namaproduk'));
         // var_dump(Request('deskripsiproduk'));
         // var_dump(Request('formFile'));
@@ -69,7 +70,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         $products = Products::find($id);
-        return view('products.detail', compact('products'));
+        return view('products.detail', ['products' => $products]);
     }
 
     /**
