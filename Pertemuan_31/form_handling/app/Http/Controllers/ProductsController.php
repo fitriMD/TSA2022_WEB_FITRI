@@ -107,7 +107,9 @@ class ProductsController extends Controller
         $products->gambar = $image_name;
 
         $products->save();
-        return 'Produk berhasil diubah';
+
+        return redirect()->route('products.index')
+            ->with('success', 'Produk Berhasil Diubah');
     }
 
     /**
