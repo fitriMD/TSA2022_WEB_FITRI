@@ -9,6 +9,8 @@
         @csrf
         Username <input type="text" name="username" required><br>
         Nama <input type="text" name="nama" required><br>
+        Password <input type="text" name="password" required><br>
+        Email <input type="text" name="email" required><br>
         File <input type="file" name="berkas" required accept=".jpg,.png">
         <button type="submit">Simpan</button>
 

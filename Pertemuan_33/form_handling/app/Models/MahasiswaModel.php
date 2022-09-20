@@ -10,7 +10,7 @@ class MahasiswaModel extends Model
     use HasFactory;
     protected $table = 'user';
     protected $primaryKey = 'user_id';
-    protected $fillable = ['username', 'nama', 'avatar'];
+    protected $fillable = ['username', 'nama', 'password', 'email','avatar'];
 
     public $timestamps = false;
 }

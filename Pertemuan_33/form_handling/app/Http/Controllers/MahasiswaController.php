@@ -42,28 +42,32 @@ class MahasiswaController extends Controller
         $rules = [
             'username' => 'required|alpha_dash|min:4|max:20|unique:App\Models\MahasiswaModel',
             'nama' => 'required|string|max:50',
+            'password' => 'required|string|max:20',
+            'email' => 'required|email|string|max:50',
             'berkas' => 'required|mimes:jpg,png|max:100'
         ];
 
         $validator =  Validator::make($request->all(), $rules);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return view('index')->with('error', $validator->errors());
         }
 
         $file = $request->file('berkas');
         $image_name = '';
-        if($file){
+        if ($file) {
             $image_name = $file->store('images', 'public');
         }
 
         MahasiswaModel::create([
             'username' => $request->input('username'),
             'nama' => $request->input('nama'),
+            'password' => $request->input('password'),
+            'email' => $request->input('email'),
             'avatar' => $image_name
         ]);
 
-        return view('index')->with('success', 'Artikel berhasil disimpan');
+        return view('index')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -87,10 +91,10 @@ class MahasiswaController extends Controller
     {
         $data =  MahasiswaModel::find($id);
 
-        return (!$data)? view('no_data') :
-                    view('edit')
-                    ->with('id', $id)
-                    ->with('data', $data);
+        return (!$data) ? view('no_data') :
+            view('edit')
+            ->with('id', $id)
+            ->with('data', $data);
     }
 
     /**
@@ -103,8 +107,10 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'username' => 'required|alpha_dash|min:4|max:20|unique:App\Models\MahasiswaModel,user_id,'.$id,
+            'username' => 'required|alpha_dash|min:4|max:20|unique:App\Models\MahasiswaModel,user_id,' . $id,
             'nama' => 'required|string|max:50',
+            'password' => 'required|string|max:20',
+            'email' => 'required|email|string|max:50',
             'berkas' => 'required|mimes:jpg,png|max:100'
         ];
 
@@ -112,16 +118,16 @@ class MahasiswaController extends Controller
 
         $data =  MahasiswaModel::find($id);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return view('edit')
-                    ->with('error', $validator->errors())
-                    ->with('id', $id)
-                    ->with('data', $data);
+                ->with('error', $validator->errors())
+                ->with('id', $id)
+                ->with('data', $data);
         }
 
         $file = $request->file('berkas');
         $image_name = '';
-        if($file){
+        if ($file) {
             $image_name = $file->store('images', 'public');
 
             // if(Storage::exists('public/' . $data->avatar)){
@@ -130,17 +136,19 @@ class MahasiswaController extends Controller
         }
 
         MahasiswaModel::where('user_id', $id)
-                ->update([
-                    'username' => $request->input('username'),
-                    'nama' => $request->input('nama'),
-                    'avatar' => $image_name
-                ]);
+            ->update([
+                'username' => $request->input('username'),
+                'nama' => $request->input('nama'),
+                'password' => $request->input('password'),
+                'email' => $request->input('email'),
+                'avatar' => $image_name
+            ]);
 
 
         return  view('edit')
             ->with('id', $id)
             ->with('data', $data)
-            ->with('success','data berhasil disimpan');
+            ->with('success', 'data berhasil disimpan');
     }
 
     /**
@@ -157,7 +165,7 @@ class MahasiswaController extends Controller
     public function cetak_pdf()
     {
         $data = MahasiswaModel::all();
-        
+
         //return view('cetak_pdf', ['data' => $data]);
 
         $pdf = Pdf::loadView('cetak_pdf', ['data' => $data]);

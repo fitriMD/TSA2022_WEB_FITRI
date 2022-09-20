@@ -18,6 +18,10 @@
                     <th>No</th>
                     <th>Username</th>
                     <th>Nama</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Foto</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +30,9 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $d->username }}</td>
                     <td>{{ $d->nama }}</td>
+                    <td>{{ $d->password }}</td>
+                    <td>{{ $d->email }}</td>
+                    <td><img width="150px" src="{{ public_path('storage/'.$d->avatar) }}" alt=""></td>
                 </tr>
                 @endforeach
             </tbody>
