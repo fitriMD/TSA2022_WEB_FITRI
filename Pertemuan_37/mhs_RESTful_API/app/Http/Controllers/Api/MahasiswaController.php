@@ -4,10 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Traits\ApiResponse;
+use App\Http\Requests\MahasiswaRequest;
+
 
 class MahasiswaController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +22,12 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $data=Mahasiswa::all();
-        return response()->json($data);
+        $user = auth()->user();
+        $mahasiswa = Mahasiswa::with('user')
+            ->where('Nim', $user->id)
+            ->get();
+
+        return $this->apiSuccess($mahasiswa);
     }
 
     /**
@@ -35,9 +46,16 @@ class MahasiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MahasiswaRequest $request)
     {
-        //
+        $request->validated();
+
+        $user = auth()->user();
+        $mahasiswa = new Mahasiswa($request->all());
+        $mahasiswa->user()->associate($user);
+        $mahasiswa->save();
+
+        return $this->apiSuccess($mahasiswa->load('user'));
     }
 
     /**
@@ -46,9 +64,10 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Mahasiswa $mahasiswa)
     {
-        //
+        return $this->apiSuccess($mahasiswa->load('user'));
+
     }
 
     /**
@@ -69,9 +88,23 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MahasiswaRequest $request, Mahasiswa $mahasiswa)
     {
-        //
+        $request->validated();
+        $mahasiswa->Nim = $request->Nim;
+        $mahasiswa->Nama = $request->Nama;
+        $mahasiswa->Jurusan = $request->Jurusan;
+        $mahasiswa->No_Handphone = $request->No_Handphone;
+        $mahasiswa->Email = $request->Email;
+        $mahasiswa->Tanggal_lahir = $request->Tanggal_lahir;
+        $mahasiswa->kelas_id = $request->get('Kelas');
+
+        $kelas = new Kelas;
+        $kelas->id = $request->get('Kelas');
+
+
+        $mahasiswa->save();
+        return $this->apiSuccess($mahasiswa->load('user'));
     }
 
     /**
@@ -80,8 +113,16 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        if(auth()->user()->id == $mahasiswa->user_id){
+            $mahasiswa->delete;
+            return $this->apiSuccess($mahasiswa);
+        }
+
+        return $this->apiError(
+            'Unauthorized',
+            Response::HTTP_UNAUTHORIZED
+        );
     }
 }
